@@ -1,18 +1,4 @@
-/**
- * Copyright © 2017 Jeremy Custenborder (jcustenborder@gmail.com)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+
 package com.github.jcustenborder.kafka.connect.transform.xml;
 
 import com.github.jcustenborder.kafka.connect.xml.Connectable;
@@ -20,12 +6,12 @@ import com.github.jcustenborder.kafka.connect.xml.KafkaConnectPlugin;
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.io.Files;
+
 import com.sun.codemodel.JCodeModel;
 import com.sun.tools.xjc.Options;
 import com.sun.tools.xjc.api.S2JJAXBModel;
 import com.sun.tools.xjc.api.SchemaCompiler;
 import com.sun.tools.xjc.api.XJC;
-import org.apache.kafka.connect.errors.ConnectException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xml.sax.InputSource;
@@ -106,7 +92,7 @@ public class XSDCompiler implements Closeable {
     S2JJAXBModel model = schemaCompiler.bind();
 
     if (null == model) {
-      throw new ConnectException("Schema compiler could not bind schema.");
+      throw new RuntimeException("Schema compiler could not bind schema.");
     }
 
     JCodeModel jCodeModel = model.generateCode(null, new ConnectErrorListener(log));
